@@ -9,17 +9,20 @@ IConfiguration config = new ConfigurationBuilder()
 Console.WriteLine("INICIANDO COPIADO DE ARCHVOS");
 
 // Lectura de archivos en paths designados
-string sourcePath = Path.Combine(Environment.CurrentDirectory, config.GetSection("Source").Get<string>());
+string sourcePath = Path.Combine("", config.GetSection("Source").Get<string>());
 DirectoryInfo sourceInfo = new DirectoryInfo(sourcePath);
+Console.WriteLine("ORIGEN: " + sourceInfo);
 
-string targetPath = Path.Combine(Environment.CurrentDirectory, config.GetSection("Target").Get<string>());
+string targetPath = Path.Combine("", config.GetSection("Target").Get<string>());
 DirectoryInfo targetInfo = new DirectoryInfo(targetPath);
+Console.WriteLine("DESTINO: " + targetPath);
 
 string[] extensions = config.GetSection("AllowedExtensiones").Get<string[]>();
 
 void CopyFiles(DirectoryInfo source, DirectoryInfo target)
 {
-    Directory.CreateDirectory(target.FullName);
+    if(!Directory.Exists(target.FullName))
+        Directory.CreateDirectory(target.FullName);
 
     var files = source.GetFiles()
         .Where(file => extensions.Contains(file.Name.ToLower().Substring(file.Name.LastIndexOf(".") + 1)))
