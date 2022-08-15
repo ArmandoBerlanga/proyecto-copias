@@ -21,8 +21,7 @@ string[] extensions = config.GetSection("AllowedExtensiones").Get<string[]>();
 
 void CopyFiles(DirectoryInfo source, DirectoryInfo target)
 {
-    if(!Directory.Exists(target.FullName))
-        Directory.CreateDirectory(target.FullName);
+    Directory.CreateDirectory(target.FullName);
 
     var files = source.GetFiles()
         .Where(file => extensions.Contains(file.Name.ToLower().Substring(file.Name.LastIndexOf(".") + 1)))
