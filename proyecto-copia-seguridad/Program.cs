@@ -10,7 +10,7 @@ string destino = @"C:\Users\rauly\OneDrive\Escritorio\Ejemplo";
 DirectoryInfo destinoDir = new DirectoryInfo(destino);
 
 //Extensiones validas
-string[] extensions = new string[2] {"json","config"};
+string[] ext = new string[2] {"json","config"};
 
 try
 {
@@ -26,7 +26,7 @@ void Archivos(DirectoryInfo fuenteDir, DirectoryInfo destinoDir)
 {
     Directory.CreateDirectory(destinoDir.FullName);
 
-    var documentos = fuenteDir.GetFiles().Where(value => extensions.Contains(value.Name.ToLower().Substring(value.Name.LastIndexOf(".") + 1))).ToList();
+    var documentos = fuenteDir.GetFiles().Where(value => ext.Contains(value.Name.ToLower().Substring(value.Name.LastIndexOf(".") + 1))).ToList();
 
     foreach (var documento in documentos)
         documento.CopyTo(Path.Combine(destinoDir.FullName, documento.Name), true);
